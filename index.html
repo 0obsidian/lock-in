@@ -1,55 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Wall</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(33.33vw, 1fr));
-            grid-template-rows: repeat(auto-fill, minmax(33.33vh, 1fr));
-            background-color: black;
-            height: 100vh;
-        }
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <title>Checking your browser...</title>
+    <link rel="shortcut icon" href="img/Favicon.ico" type="image/x-icon">
 </head>
+
 <body>
-    <script>
-        const videoSrc = "lockin.mp4"; // Replace with your video source
+    <div class="container-video" id="container-video">
+        <video class="video" id="video" autoplay muted loop>
+            <source src="vid/video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
-        function fillScreenWithVideos() {
-            const body = document.body;
-            const videoCount = Math.ceil(window.innerWidth / 200) * Math.ceil(window.innerHeight / 200);
-
-            // Remove existing videos if resizing
-            body.innerHTML = '';
-
-            for (let i = 0; i < videoCount; i++) {
-                const video = document.createElement('video');
-                video.src = videoSrc;
-                video.autoplay = true;
-                video.loop = true;
-                video.muted = false; // Set false to enable multiple audio tracks
-                video.playsInline = true;
-                body.appendChild(video);
-            }
-        }
-
-        // Ensure fullscreen browser and load videos
-        window.addEventListener('load', () => {
-            fillScreenWithVideos();
-        });
-
-        // Adjust videos on resizing the window
-        window.addEventListener('resize', fillScreenWithVideos);
-    </script>
+    <div class="container" id="container">
+        <img class="gif" src="img/dots.gif" alt="Dots">
+        <h2 class="text">Checking your browser before accessing attachment.</h2>
+        <p class="text">This process is automatic. Your browser will redirect to your requested content shortly.</p>
+        <p class="text-captcha" id="text-captcha">Please enter captcha</p>
+        <div class="counter" id="counter">3</div>
+        <div class="recaptcha-container" id="recaptcha-container">
+            <div class="button-container">
+                <div class="button" id="button" onclick="showVideo()"></div>
+            </div>
+            <div class="text-container">
+                <p>I'm not a robot</p>
+            </div>
+            <div class="image-container">
+                <img src="img/RecaptchaLogo.png" alt="Recaptcha">
+                <p>Privacy - Terms</p>
+            </div>
+        </div>
+        <a class="link" href="https://github.com/Pablo-Restrepo/Troll-Page-Scream">DDoS protection by
+            Cloudflare</a>
+        <p>Ray ID: 348759h65g34h</p>
+    </div>
 </body>
+
+<script src="main.js"></script>
+
 </html>
