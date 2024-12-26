@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Video</title>
+    <title>Video Wall</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(33.33vw, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(33.33vh, 1fr));
             background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
         }
         video {
@@ -22,29 +22,34 @@
     </style>
 </head>
 <body>
-    <video id="fullscreen-video" src="lockin.mp4" autoplay loop playsinline></video>
     <script>
-        // Automatically request fullscreen
-        const videoElement = document.getElementById('fullscreen-video');
+        const videoSrc = "lockin.mp4"; // Replace with your video source
 
-        function requestFullscreen() {
-            if (document.fullscreenElement == null) {
-                document.body.requestFullscreen().catch(err => {
-                    console.error("Error attempting fullscreen:", err);
-                });
+        function fillScreenWithVideos() {
+            const body = document.body;
+            const videoCount = Math.ceil(window.innerWidth / 200) * Math.ceil(window.innerHeight / 200);
+
+            // Remove existing videos if resizing
+            body.innerHTML = '';
+
+            for (let i = 0; i < videoCount; i++) {
+                const video = document.createElement('video');
+                video.src = videoSrc;
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = false; // Set false to enable multiple audio tracks
+                video.playsInline = true;
+                body.appendChild(video);
             }
         }
 
-        // Request fullscreen on load
+        // Ensure fullscreen browser and load videos
         window.addEventListener('load', () => {
-            requestFullscreen();
-            videoElement.play(); // Ensure video keeps playing
+            fillScreenWithVideos();
         });
 
-        // Prevent video from stopping
-        videoElement.addEventListener('ended', () => {
-            videoElement.play();
-        });
+        // Adjust videos on resizing the window
+        window.addEventListener('resize', fillScreenWithVideos);
     </script>
 </body>
 </html>
